@@ -11,12 +11,16 @@ const ItemCount = ({ stock, initial = 1, onAdd }) => {
     if (cantidad > 1) setCantidad(cantidad - 1);
   };
 
+  if (stock === 0) {
+    return <p style={{ color: "red" }}>Producto sin stock</p>;
+  }
+
   return (
     <div style={{ marginTop: "1rem" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        <button onClick={decrementar}>-</button>
+        <button onClick={decrementar} disabled={cantidad <= 1}>-</button>
         <span>{cantidad}</span>
-        <button onClick={incrementar}>+</button>
+        <button onClick={incrementar} disabled={cantidad >= stock}>+</button>
       </div>
       <button onClick={() => onAdd(cantidad)} style={{ marginTop: "0.5rem" }}>
         Agregar al carrito

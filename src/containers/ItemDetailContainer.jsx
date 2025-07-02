@@ -15,18 +15,22 @@ const ItemDetailContainer = () => {
   useEffect(() => {
     setLoading(true);
     getProductById(itemId)
-      .then((item) => setProducto(item))
+      .then((item) => {
+        setProducto(item);
+        setAdded(false); // reset cuando se cambia de producto
+      })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, [itemId]);
 
- const handleAdd = (cantidad) => {
-  addItem(producto, cantidad);
-  setAdded(true);
-};
+  const handleAdd = (cantidad) => {
+    addItem(producto, cantidad);
+    setAdded(true);
+  };
 
   if (loading) return <p>Cargando detalle...</p>;
   if (error) return <p>Error: {error}</p>;
+  if (!producto) return <p>Producto no encontrado</p>;
 
   return (
     <div>
@@ -36,10 +40,11 @@ const ItemDetailContainer = () => {
       <p>Stock disponible: {producto.stock}</p>
       <p>Categoría: {producto.categoria}</p>
 
-      {!added && (
+      {!added ? (
         <ItemCount stock={producto.stock} initial={1} onAdd={handleAdd} />
+      ) : (
+        <p style={{ color: "green" }}>Producto agregado al carrito ✅</p>
       )}
-      {added && <p style={{ color: "green" }}>Producto agregado al carrito ✅</p>}
     </div>
   );
 };

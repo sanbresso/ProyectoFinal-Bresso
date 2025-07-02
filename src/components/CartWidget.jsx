@@ -4,12 +4,17 @@ import { useCart } from "../context/CartContext";
 const CartWidget = () => {
   const { totalQuantity } = useCart();
 
-  if (totalQuantity === 0) return null;
-
   return (
-    <Link to="/cart" style={{ position: "fixed", top: 10, right: 10 }}>
-      🛒 <span>{totalQuantity}</span>
-    </Link>
+    <div>
+      <Link to="/cart" style={{ textDecoration: "none", color: "black" }}>
+        🛒 Carrito
+        {totalQuantity > 0 && (
+          <span style={{ marginLeft: "0.5rem", color: "green", fontWeight: "bold" }}>
+            ({totalQuantity})
+          </span>
+        )}
+      </Link>
+    </div>
   );
 };
 
