@@ -1,0 +1,17 @@
+.cartContainer {
+  padding: 2rem;
+}
+
+.cartItem {
+  border-bottom: 1px solid #dee2e6;
+  padding: 1rem 0;
+}
+
+.itemTitle {
+  font-weight: 600;
+}
+
+.subtotal {
+  font-style: italic;
+  color: #6c757d;
+}

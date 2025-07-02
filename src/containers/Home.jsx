@@ -1,13 +1,16 @@
+import { Link } from "react-router-dom";
+import styles from "./Home.module.css";
+
 const Home = () => {
   return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h1>Bienvenido a Mi Tienda Online</h1>
-      <p>Explorá nuestra selección de productos por categoría.</p>
-      <img
-        src="https://via.placeholder.com/600x200?text=Banner+Tienda"
-        alt="Banner Tienda"
-        style={{ marginTop: "1rem", borderRadius: "8px", width: "100%", maxWidth: "600px" }}
-      />
+    <div className={`container ${styles.hero}`}>
+      <h1 className={styles.heroTitle}>Bienvenido a Mi Tienda Online 👕👟</h1>
+      <p className={styles.heroText}>
+        Descubrí nuestros productos de calidad en ropa, calzado y más.
+      </p>
+      <Link to="/category/remeras" className="btn btn-primary btn-lg">
+        Ver productos
+      </Link>
     </div>
   );
 };

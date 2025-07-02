@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import styles from "./ContactForm.module.css";
 
 const ContactForm = () => {
   const form = useRef();
@@ -17,45 +18,42 @@ const ContactForm = () => {
         form.current.reset();
       })
       .catch((error) => {
-        console.error("Error al enviar:", error.text);
+        console.error(error.text);
         setError("Hubo un error al enviar el mensaje. Intenta nuevamente.");
       });
   };
 
   return (
-    <div style={{ maxWidth: "600px", margin: "2rem auto", padding: "2rem", border: "1px solid #ccc", borderRadius: "8px", backgroundColor: "#f9f9f9" }}>
-      <h2 style={{ textAlign: "center" }}>Contacto</h2>
-      <form ref={form} onSubmit={sendEmail} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <input type="text" name="name" placeholder="Tu nombre" required style={inputStyle} />
-        <input type="email" name="email" placeholder="Tu correo electrónico" required style={inputStyle} />
-        <input type="text" name="title" placeholder="Asunto" required style={inputStyle} />
-        <textarea name="message" placeholder="Tu mensaje" required rows={5} style={textareaStyle} />
-        <button type="submit" style={buttonStyle}>Enviar</button>
+    <div className={`container ${styles.contactContainer}`}>
+      <h2>Contacto</h2>
+      <form ref={form} onSubmit={sendEmail}>
+        <div className="mb-3">
+          <label className="form-label">Tu nombre</label>
+          <input type="text" name="name" className="form-control" required />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Tu correo electrónico</label>
+          <input type="email" name="email" className="form-control" required />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Asunto</label>
+          <input type="text" name="title" className="form-control" required />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Mensaje</label>
+          <textarea name="message" className="form-control" required />
+        </div>
+
+        <button type="submit" className="btn btn-primary">Enviar</button>
       </form>
-      {sent && <p style={{ color: "green", marginTop: "1rem" }}>¡Mensaje enviado correctamente!</p>}
-      {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
+
+      {sent && <p className="text-success mt-3">¡Mensaje enviado correctamente!</p>}
+      {error && <p className="text-danger mt-3">{error}</p>}
     </div>
   );
-};
-
-const inputStyle = {
-  padding: "0.5rem",
-  borderRadius: "4px",
-  border: "1px solid #ccc",
-};
-
-const textareaStyle = {
-  ...inputStyle,
-  resize: "vertical",
-};
-
-const buttonStyle = {
-  backgroundColor: "#007bff",
-  color: "#fff",
-  padding: "0.6rem",
-  border: "none",
-  borderRadius: "4px",
-  cursor: "pointer",
 };
 
 export default ContactForm;

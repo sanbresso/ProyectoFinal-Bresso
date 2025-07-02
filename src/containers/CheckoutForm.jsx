@@ -1,78 +1,96 @@
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { createOrder } from "../services/firebase/createOrder";
-import { useNavigate } from "react-router-dom";
+import styles from "./CheckoutForm.module.css";
 
 const CheckoutForm = () => {
-  const { cart, totalPrice, clearCart } = useCart();
-  const [form, setForm] = useState({ nombre: "", email: "", telefono: "" });
+  const { cart, clearCart, totalPrice } = useCart();
+  const [formData, setFormData] = useState({ nombre: "", email: "", telefono: "" });
   const [orderId, setOrderId] = useState(null);
-  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const orderData = {
-      buyer: form,
+    if (!formData.nombre || !formData.email || !formData.telefono) {
+      setError("Por favor, completá todos los campos.");
+      return;
+    }
+
+    const order = {
+      buyer: formData,
       items: cart,
       total: totalPrice,
     };
 
     try {
-      const id = await createOrder(orderData);
+      const id = await createOrder(order);
       setOrderId(id);
       clearCart();
-    } catch (error) {
-      console.error("Error al crear orden:", error);
+      setError("");
+    } catch (err) {
+      setError("Hubo un problema al procesar la compra.");
     }
   };
 
   if (orderId) {
     return (
-      <div>
-        <h2>¡Gracias por tu compra!</h2>
+      <div className="container text-center mt-5">
+        <h4>¡Gracias por tu compra! 🛍️</h4>
         <p>Tu número de orden es: <strong>{orderId}</strong></p>
-        <button onClick={() => navigate("/")}>Volver al inicio</button>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className={`container ${styles.formContainer}`}>
       <h2>Finalizar compra</h2>
-      <input
-        type="text"
-        name="nombre"
-        placeholder="Nombre"
-        value={form.nombre}
-        onChange={handleChange}
-        required
-      />
-      <br />
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleChange}
-        required
-      />
-      <br />
-      <input
-        type="tel"
-        name="telefono"
-        placeholder="Teléfono"
-        value={form.telefono}
-        onChange={handleChange}
-        required
-      />
-      <br />
-      <button type="submit">Confirmar compra</button>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label className="form-label">Nombre</label>
+          <input
+            type="text"
+            name="nombre"
+            className="form-control"
+            value={formData.nombre}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Correo electrónico</label>
+          <input
+            type="email"
+            name="email"
+            className="form-control"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Teléfono</label>
+          <input
+            type="tel"
+            name="telefono"
+            className="form-control"
+            value={formData.telefono}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {error && <p className="text-danger">{error}</p>}
+
+        <button type="submit" className="btn btn-primary">Confirmar compra</button>
+      </form>
+    </div>
   );
 };
 
