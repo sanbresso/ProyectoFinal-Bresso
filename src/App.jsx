@@ -6,14 +6,14 @@ import CheckoutForm from "./containers/CheckoutForm";
 import NavBar from "./components/NavBar";
 import Home from "./containers/Home";
 import ContactForm from "./components/ContactForm";
-import Footer from "./components/Footer"; 
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="d-flex flex-column min-vh-100"> {}
+      <div className="d-flex flex-column min-vh-100">
         <NavBar />
-        <main className="flex-fill"> {}
+        <main className="flex-fill">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/category/:categoryId" element={<ItemListContainer />} />
@@ -21,6 +21,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<CheckoutForm />} />
             <Route path="/contact" element={<ContactForm />} />
+            <Route path="/search/:query" element={<ItemListContainer />} />
           </Routes>
         </main>
         <Footer />
@@ -28,6 +29,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
 
 export default App;
