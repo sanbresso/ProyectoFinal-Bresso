@@ -1,5 +1,5 @@
 import { collection, addDoc, Timestamp } from "firebase/firestore";
-import { db } from "../../firebase/firebaseConfig"; // ✅ Esto es correcto
+import { db } from "../../firebase/firebaseConfig";
 
 export const createOrder = async (orderData) => {
   const ordersRef = collection(db, "ordenes");

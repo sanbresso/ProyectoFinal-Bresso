@@ -6,15 +6,14 @@ import { getProducts } from "../services/firebase/getProducts";
 const ItemListContainer = () => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { categoryId } = useParams(); // 👈
-
+  const { categoryId } = useParams(); 
   useEffect(() => {
     setLoading(true);
     getProducts(categoryId)
       .then((res) => setProductos(res))
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
-  }, [categoryId]); // 👈 dependencia
+  }, [categoryId]);
 
   if (loading) return <p>Cargando productos...</p>;
   if (productos.length === 0) return <p>No hay productos disponibles.</p>;

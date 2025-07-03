@@ -4,7 +4,6 @@ import { db } from "../../firebase/firebaseConfig";
 export const getProducts = async (categoryId) => {
   const productosRef = collection(db, "productos");
 
-  // Si hay categoría, filtramos
   const q = categoryId
     ? query(productosRef, where("categoria", "==", categoryId))
     : productosRef;

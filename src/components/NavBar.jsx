@@ -6,7 +6,7 @@ const NavBar = () => {
   return (
     <nav className={`d-flex justify-content-between align-items-center ${styles.navbar}`}>
       <div className="d-flex align-items-center">
-        <Link to="/" className={styles.logo}>MiTienda</Link>
+        <Link to="/" className={styles.logo}>SENCILLE STORE</Link>
         <Link to="/category/remeras" className={styles.navLink}>Remeras</Link>
         <Link to="/category/pantalones" className={styles.navLink}>Pantalones</Link>
         <Link to="/category/calzado" className={styles.navLink}>Calzado</Link>

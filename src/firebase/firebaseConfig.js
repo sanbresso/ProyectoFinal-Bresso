@@ -5,7 +5,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyAICdDEPVPap7HOHlNyTVPGF8sXHZXouKE",
   authDomain: "proyecto-react-5df27.firebaseapp.com",
   projectId: "proyecto-react-5df27",
-  storageBucket: "proyecto-react-5df27.appspot.com", // <-- corregido "firebasestorage.app" por ".appspot.com"
+  storageBucket: "proyecto-react-5df27.appspot.com",
   messagingSenderId: "1065708036337",
   appId: "1:1065708036337:web:dbf6f62acc13a8d7c20950"
 };

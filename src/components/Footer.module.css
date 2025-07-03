@@ -1,0 +1,18 @@
+.footer {
+  border-top: 1px solid #dee2e6;
+  margin-top: auto;
+}
+
+.social {
+  margin-top: 1rem;
+}
+
+.instagramIcon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.instagramIcon:hover {
+  transform: scale(1.2);
+}
